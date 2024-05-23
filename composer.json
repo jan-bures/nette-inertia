@@ -1,5 +1,5 @@
 {
-    "name": "pepa-linha/nette-inertia",
+    "name": "jan-bures/nette-inertia",
     "type": "library",
     "description": "The Nette adapter for Inertia.js.",
     "keywords": ["nette", "inertia", "javascript"],
