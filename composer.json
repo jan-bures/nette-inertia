@@ -5,8 +5,8 @@
     "keywords": ["nette", "inertia", "javascript"],
     "license": "MIT",
     "require": {
-        "php": ">=7.4",
-        "nette/application": "^3.0"
+        "php": ">=8.1",
+        "nette/application": "^3.2"
     },
     "autoload": {
         "classmap": ["src/"]
@@ -15,6 +15,10 @@
         {
             "name": "Pepa Linha",
             "email": "josef.linha@gmail.com"
+        },
+        {
+            "name": "Jan Bureš",
+            "email": "jan.bures@live.com"
         }
     ]
 }

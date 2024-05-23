@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace PL\NetteInertia;
+namespace NetteInertia;
 
 use Nette\Application\Responses\VoidResponse;
+use Nette\Application\UI\InvalidLinkException;
 use Nette\Application\UI\Presenter;
 use Nette\Http\IRequest;
 use Nette\Http\IResponse;
@@ -14,17 +15,20 @@ abstract class InertiaPresenter extends Presenter
 {
     private ?PageObject $pageObject = null;
 
+    /**
+     * @throws InvalidLinkException
+     */
     protected function startup()
     {
         parent::startup();
 
         if ($this->isInertiaRequest()) {
             if ($this->getInertiaAssetVersion() !== $this->getAssetVersion()
-                && $this->getHttpRequest()->isMethod(IRequest::GET))
+                && $this->getHttpRequest()->isMethod(IRequest::Get))
             {
                 $httpResponse = $this->getHttpResponse();
                 $httpResponse->addHeader('X-Inertia-Location', $this->link('this'));
-                $httpResponse->setCode(IResponse::S409_CONFLICT);
+                $httpResponse->setCode(IResponse::S409_Conflict);
                 $response = new VoidResponse();
                 $response->send($this->getHttpRequest(), $httpResponse);
                 $this->sendResponse($response);
@@ -34,12 +38,15 @@ abstract class InertiaPresenter extends Presenter
         }
     }
 
-    protected function afterRender()
+    protected function afterRender(): void
     {
         parent::afterRender();
         $this->template->inertiaPageObject = Json::encode($this->pageObject->getData());
     }
 
+    /**
+     * @throws InvalidLinkException
+     */
     public function inertia(array $props = [], ?string $component = null, ?string $link = null)
     {
         $pageObject = new PageObject(

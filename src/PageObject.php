@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PL\NetteInertia;
+namespace NetteInertia;
 
 class PageObject
 {
